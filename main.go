@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -151,10 +149,11 @@ var db *sql.DB
 var err error
 
 func InitDB() {
-	db, err := gorm.Open(postgres.New(postgres.Config{
-		DSN:                  "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai",
-		PreferSimpleProtocol: true,
-	}), &gorm.Config{})
+	db, err = sql.Open("mysql",
+		"root:@tcp(127.0.0.1:3306)/userdb")
+	if err != nil {
+		panic(err.Error())
+	}
 }
 
 type CORSRouterDecorator struct {
