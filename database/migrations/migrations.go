@@ -1,7 +1,7 @@
 package migrations
 
 import (
-	"github.com/brunohs007/CRUD-api/models"
+	"github.com/brunohs007/CRUD/tree/develop/models"
 	"gorm.io/gorm"
 )
 

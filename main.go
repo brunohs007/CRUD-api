@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	"github.com/brunohs007/CRUD/tree/develop/database/migrations"
@@ -151,7 +150,7 @@ type Usuario struct {
 //Db configuration
 var db *gorm.DB
 
-func StartDB() {
+func InitDB() {
 	str := "host=localhost port=25432 user=admin dbname=books sslmode=disable password=123456"
 
 	database, err := gorm.Open(postgres.Open(str), &gorm.Config{})
@@ -168,17 +167,6 @@ func StartDB() {
 	config.SetConnMaxLifetime(time.Hour)
 
 	migrations.RunMigrations(db)
-}
-
-var db *sql.DB
-var err error
-
-func InitDB() {
-	db, err = sql.Open("mysql",
-		"root:@tcp(127.0.0.1:3306)/userdb")
-	if err != nil {
-		panic(err.Error())
-	}
 }
 
 type CORSRouterDecorator struct {
